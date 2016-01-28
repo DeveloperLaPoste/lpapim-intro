@@ -1,10 +1,10 @@
-# Présentation HTML5 d'introduction / démo sur la plateforme lp-apim
+## La Poste API Management platform introduction slideshow
 
 ## Installation
 
     $ npm install
 
-## Utilisation
+## Usage
 
     $ grunt serve
     $ xdg-open http://localhost:8000
