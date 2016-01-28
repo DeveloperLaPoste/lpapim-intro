@@ -1,0 +1,53 @@
+/*
+.reveal iframe.twitter-follow-button {
+  min-width: 50%;
+}
+
+.reveal form label {
+  font-size: 0.8em;
+}
+
+.reveal form input, .reveal form button {
+  font-size: 1em;
+}
+
+.reveal form button {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+
+.reveal form button:hover {
+  cursor: pointer;
+}
+
+.reveal form pre {
+  font-size: 0.7em;
+}
+*/
+
+iframe.twitter-follow-button {
+  min-width: 50%;
+}
+
+.reveal form .resultBody {
+  min-height: 350px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url('ajax-loader.gif') 50% 50% no-repeat;
+}
+
+body.loading .resultBody {
+  overflow: hidden;
+}
+
+body.loading .modal {
+  display: block;
+}

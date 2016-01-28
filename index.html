@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LPAPIM - La Poste API Management</title>
+  <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+  <meta name="author" content="Hakim El Hattab">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/laposte.css" id="theme">
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/slides.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+  <script>
+    (function () {
+      var link;
+      if (window.location.search.match(/print-pdf/gi)) {
+        link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+    })();
+  </script>
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script>
+    var adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt;
+
+    //adminApiBaseUrl = 'https://adminapi.laposte.fr';
+    //apiBaseUrl = 'https://api.laposte.fr';
+    adminApiBaseUrl = 'http://admin.test.lpapim.laposte.io';
+    apiBaseUrl = 'http://api.test.lpapim.laposte.io';
+
+    (function populateAjaxLpapimCredentials(appKey) {
+
+      function refreshHighlightBlocks() {
+        $(apiDemoBaseElt + ' pre code').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      }
+
+      $.ajaxSetup({
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        beforeSend: function (xhr) {
+          $('body').addClass('loading');
+          xhr.setRequestHeader('X-LP-APIM-KEY', appKey);
+        },
+        complete: function () {
+          $('body').removeClass('loading');
+        },
+        success: function (result) {
+          $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
+          refreshHighlightBlocks();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          var content = JSON.parse(jqXHR.responseText);
+          $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(content, null, 2));
+          refreshHighlightBlocks();
+        }
+      });
+    })('hQpr/a8Dsx/tKpIuRwB7fxn2S9Hl35Ag+Q65Pykntd1vf/5m2EYd3AWGxUbr8oDW');
+  </script>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <section class="first">
+      <div>
+        <div class="title">
+          <h1>La Poste</h1>
+          <h2>API Management</h2>
+          <h3>Intro</h3>
+        </div>
+        <div class="author">
+          <p>Olivier Penhoat / David Carelli / Philippe Antoine</p>
+          <p>
+            Branche Numérique / La Poste
+          </p>
+          <div style="margin-top: 20px">
+            <p>
+              <a href="mailto:developer@laposte.io">developer@laposte.io</a>
+            </p>
+            <p>
+              <a href="https://twitter.com/LaPosteAPI" class="twitter-follow-button" data-show-count="false"
+                 data-lang="fr" data-show-screen-name="false" data-size="large" data-dnt="true">Suivre @LaPosteAPI</a>
+              <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                  js = d.createElement(s);
+                  js.id = id;
+                  js.src = p + '://platform.twitter.com/widgets.js';
+                  fjs.parentNode.insertBefore(js, fjs);
+                }
+              }(document, 'script', 'twitter-wjs');</script>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="poweredby">
+        <p>
+          Propulsé par <a href="http://lab.hakim.se/reveal-js">Reveal JS</a>
+        </p>
+        <p>
+          <a href="?print-pdf/#">Version imprimable</a>
+        </p>
+      </div>
+      <aside class="notes"><pre><small>
+        Adresses de cette présentation :
+        http://lpapimslideshow.laposte.io
+        Raccourcis :
+        f=fullscreen, s=notes, o=overview, ./b=black screen
+      </small></pre>
+      </aside>
+    </section>
+
+    <section>
+      <section>
+        <h3>Administration</h3>
+      </section>
+      <section>
+        <h3>Mon compte</h3>
+        <h5>via #plateforme</h5>
+        <form id="myAccountForm">
+          <fieldset>
+            <label>
+              pseudo :
+              <input id="username" type="text" size="20" title="Saisissez votre pseudo ou votre adresse email">
+            </label>
+            <label>
+              secret :
+              <input id="password" type="password" size="20" title="Saisissez votre mot de passe">
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+      </code></pre>
+        </form>
+        <script>
+          $('#myAccountForm .validButton').click(function () {
+            var username = $('#username').val()
+                , password = $('#password').val();
+            apiDemoBaseElt = '#myAccountForm';
+            $.ajax({
+              method: 'post',
+              url: adminApiBaseUrl + '/login',
+              data: JSON.stringify({
+                username: username,
+                password: password
+              })
+            });
+            return false;
+          });
+        </script>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h3>Consommation d'APIs</h3>
+      </section>
+      <section>
+        <h3>Suivre mon colis</h3>
+        <h5>via #suiviunifié</h5>
+        <form id="suiviForm">
+          <fieldset>
+            <label>
+              N° de colis :
+              <input id="suiviCode" type="text" placeholder="1234567890123"
+                     title="Saisissez un numéro de colis ou de courrier">
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+      </code></pre>
+        </form>
+        <script>
+          $('#suiviForm .validButton').click(function () {
+            var code = $('#suiviCode').val();
+            apiDemoBaseElt = '#suiviForm';
+            $.ajax({
+              url: apiBaseUrl + '/suivi/v1?code=' + code
+            });
+            return false;
+          });
+        </script>
+      </section>
+
+      <section>
+        <h3>Trouver un bureau de poste</h3>
+        <h5>via #datanova</h5>
+        <form id="bureauForm">
+          <fieldset>
+            <label>
+              Où :
+              <input id="bureauSearch" type="text" placeholder="Toulouse"
+                     title="Saisissez une adresse/zone où trouver un bureau de poste">
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+      </code></pre>
+        </form>
+        <script>
+          $('#bureauForm .validButton').click(function () {
+            var q = $('#bureauSearch').val();
+            apiDemoBaseElt = '#bureauForm';
+            $.ajax({
+              url: apiBaseUrl + '/datanova/v1/search?q=' + q
+            });
+            return false;
+          });
+        </script>
+      </section>
+
+    </section>
+
+  </div>
+</div>
+<div class="modal"></div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    slideNumber: true,
+    history: true,
+    center: true,
+    previewLinks: true,
+    transitionSpeed: 'fast',
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+    // Parallax scrolling
+    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    // parallaxBackgroundSize: '2100px 900px',
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      {
+        src: 'lib/js/classList.js', condition: function () {
+        return !document.body.classList;
+      }
+      },
+      {
+        src: 'plugin/markdown/marked.js', condition: function () {
+        return !!document.querySelector('[data-markdown]');
+      }
+      },
+      {
+        src: 'plugin/markdown/markdown.js', condition: function () {
+        return !!document.querySelector('[data-markdown]');
+      }
+      },
+      {
+        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      },
+      {
+        src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+        return !!document.body.classList;
+      }
+      },
+      {
+        src: 'plugin/notes/notes.js', async: true, condition: function () {
+        return !!document.body.classList;
+      }
+      }
+    ]
+  });
+</script>
+</body>
+</html>

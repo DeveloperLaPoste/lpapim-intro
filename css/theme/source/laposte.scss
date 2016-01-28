@@ -1,0 +1,149 @@
+/**
+ * La Poste theme for reveal.js.
+ *
+ * Copyright (C) 2016 Olivier Penhoat
+ */
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+// Include theme-specific fonts
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat-Bold'), url("../../assets/themes/laposte/montserrat.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url("../../assets/themes/laposte/opensans-400.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url("../../assets/themes/laposte/opensans-700.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url("../../assets/themes/laposte/opensans-400-italic.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), url("../../assets/themes/laposte/opensans-700-italic.ttf") format('truetype');
+}
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fff;
+$headingColor: #183f80;
+$linkColor: #2277d7;
+$mainColor: darken(#636261, 10%);
+
+$mainFont: 'Open Sans', sans-serif;
+$linkColorHover: lighten($linkColor, 20%);
+$headingFont: 'Montserrat', Impact, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: -0.03em;
+$headingTextTransform: none;
+$selectionBackgroundColor: #926949;
+$mainFontSize: 30px;
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal {
+  background-image: url("../../assets/themes/laposte/laposte-open-logo.png");
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 150px 91px;
+  background-position: 20px 20px;
+  .controls {
+    display: none;
+    position: fixed;
+    width: 110px;
+    height: 110px;
+    z-index: 30;
+    right: 10px;
+    top: 10px;
+  }
+  .slide-number {
+    font-size: 0.6em;
+    font-weight: bold;
+    right: 20px;
+    color: #fff;
+  }
+  section.first {
+    .title {
+      float: right;
+      text-align: right;
+      padding-right: 20px;
+    }
+    .author {
+      clear: both;
+      padding: 20px;
+      text-align: left;
+      font-size: 0.8em
+    }
+    .poweredby {
+      text-align: right;
+      font-size: 0.5em;
+      margin-right: 20px;
+    }
+  }
+  section {
+    pre code {
+      display: block;
+      padding: 0.8em;
+      //background: #FBFBFB;
+      //color: #000;
+    }
+    form {
+      label {
+        font-size: 0.8em;
+      }
+      input, button {
+        font-size: 0.8em;
+      }
+      button {
+        border: 1px solid darken($linkColor, 10%);
+        background: $linkColor;
+        color: white;
+        padding: 2px 8px;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+      button:hover {
+        cursor: pointer;
+      }
+    }
+    img {
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+    ul, ol {
+      margin-bottom: 20px;
+      li {
+        margin: 0.6em 0;
+        font-size: 0.9em;
+        ul, ol {
+          li {
+            margin: 0.2em 0;
+          }
+        }
+      }
+    }
+    q:before {
+      content: "\201c\20";
+    }
+    q:after {
+      content: "\20\201d";
+    }
+  }
+}
