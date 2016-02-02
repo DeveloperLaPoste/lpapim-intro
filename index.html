@@ -33,42 +33,39 @@
   <script src="lib/js/html5shiv.js"></script>
   <![endif]-->
   <script>
-    var adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt;
-
+    var appKey, adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt;
+    appKey = 'GRH+CMrfqkIJMboiggvD72GuNqxL8RMcEVC8ud2IvzMyFXiexz51LiSrCrG2EhVF';
     //adminApiBaseUrl = 'https://adminapi.laposte.fr';
     //apiBaseUrl = 'https://api.laposte.fr';
     adminApiBaseUrl = 'http://admin.test.lpapim.laposte.io';
     apiBaseUrl = 'http://api.test.lpapim.laposte.io';
 
-    (function populateAjaxLpapimCredentials(appKey) {
-
-      function refreshHighlightBlocks() {
-        $(apiDemoBaseElt + ' pre code').each(function (i, block) {
-          hljs.highlightBlock(block);
-        });
-      }
-
-      $.ajaxSetup({
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        beforeSend: function (xhr) {
-          $('body').addClass('loading');
-          xhr.setRequestHeader('X-LP-APIM-KEY', appKey);
-        },
-        complete: function () {
-          $('body').removeClass('loading');
-        },
-        success: function (result) {
-          $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
-          refreshHighlightBlocks();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          var content = JSON.parse(jqXHR.responseText);
-          $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(content, null, 2));
-          refreshHighlightBlocks();
-        }
+    function refreshHighlightBlocks() {
+      $(apiDemoBaseElt + ' pre code').each(function (i, block) {
+        hljs.highlightBlock(block);
       });
-    })('hQpr/a8Dsx/tKpIuRwB7fxn2S9Hl35Ag+Q65Pykntd1vf/5m2EYd3AWGxUbr8oDW');
+    }
+
+    $.ajaxSetup({
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      beforeSend: function (xhr) {
+        $('body').addClass('loading');
+        xhr.setRequestHeader('X-LP-APIM-KEY', appKey);
+      },
+      complete: function () {
+        $('body').removeClass('loading');
+      },
+      success: function (result) {
+        $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
+        refreshHighlightBlocks();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        var content = JSON.parse(jqXHR.responseText);
+        $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(content, null, 2));
+        refreshHighlightBlocks();
+      }
+    });
   </script>
 </head>
 <body>
@@ -126,6 +123,29 @@
 
     <section>
       <section>
+        <h2>GETSHIRT</h2>
+        <h3>la startup de CAROLINE</h3>
+        <img src="assets/img/image15.png" style="margin-top: 50px">
+        <h5 style="margin-top: 50px">Et si vous étiez à la place de Caroline ?</h5>
+      </section>
+      <section>
+        <h3>API LA POSTE = COMPLIQUÉ ?</h3>
+        <img src="assets/img/twitter.png">
+        <h4>@laposteapi</h4>
+      </section>
+      <section>
+        <h3>PANORAMA DES SERVICES</h3>
+        <h5>exposés via la plateforme</h5>
+        <img src="assets/img/panorama-services.png">
+      </section>
+      <section>
+        <h3>ELSA VEUT ACHETER UN T-SHIRT</h3>
+        <h5>Schéma des interactions Elsa → Caroline → API</h5>
+      </section>
+    </section>
+
+    <section>
+      <section>
         <h3>Administration</h3>
       </section>
       <section>
@@ -168,6 +188,45 @@
     <section>
       <section>
         <h3>Consommation d'APIs</h3>
+      </section>
+      <section>
+        <h3>Adresse</h3>
+        <h5>via #adresse</h5>
+        <form id="adresseForm">
+          <fieldset>
+            <label>
+              Adresse :
+              <input list="adresses" id="adresse" type="text" value="21 Quai Louis Blériot, 75016 Paris" size="70"
+                     title="Saisissez un numéro de colis ou de courrier" data-list="">
+              <datalist id="adresses">
+                <option id="adresseOriginale" value="">
+                <option id="adresseProposee" value="">
+              </datalist>
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+      </code></pre>
+        </form>
+        <script>
+          $('#adresseForm .validButton').click(function () {
+            var adresse = $('#adresse').val();
+            apiDemoBaseElt = '#adresseForm';
+            $.ajax({
+              url: apiBaseUrl + '/mascadia/v1/rechercher?chaineRecherche=' + adresse,
+              success: function (result) {
+                result.libelleHighlight = result.libelleHighlight.replace(/\<[\/]?em\>/g, '');
+                console.log('result :', result);
+                $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
+                refreshHighlightBlocks();
+                $('#adresse').val('');
+                $('#adresseOriginale').val(adresse);
+                $('#adresseProposee').val(result.libelleHighlight);
+              }
+            });
+            return false;
+          });
+        </script>
       </section>
       <section>
         <h3>Suivre mon colis</h3>
