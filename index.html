@@ -142,52 +142,12 @@
         <h3>ELSA VEUT ACHETER UN T-SHIRT</h3>
         <h5>Schéma des interactions Elsa → Caroline → API</h5>
       </section>
-    </section>
-
-    <section>
       <section>
-        <h3>Administration</h3>
-      </section>
-      <section>
-        <h3>Mon compte</h3>
-        <h5>via #plateforme</h5>
-        <form id="myAccountForm">
-          <fieldset>
-            <label>
-              pseudo :
-              <input id="username" type="text" size="20" title="Saisissez votre pseudo ou votre adresse email">
-            </label>
-            <label>
-              secret :
-              <input id="password" type="password" size="20" title="Saisissez votre mot de passe">
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-      </code></pre>
-        </form>
-        <script>
-          $('#myAccountForm .validButton').click(function () {
-            var username = $('#username').val()
-                , password = $('#password').val();
-            apiDemoBaseElt = '#myAccountForm';
-            $.ajax({
-              method: 'post',
-              url: adminApiBaseUrl + '/login',
-              data: JSON.stringify({
-                username: username,
-                password: password
-              })
-            });
-            return false;
-          });
-        </script>
-      </section>
-    </section>
-
-    <section>
-      <section>
-        <h3>Consommation d'APIs</h3>
+        <h4>NORMALISATION D'ADRESSE</h4>
+        <p>
+          <strong>Use case</strong>: Elsa peut taper rapidement son adresse sans erreur quand elle se connecte au
+          service de Caroline
+        </p>
       </section>
       <section>
         <h3>Adresse</h3>
@@ -280,6 +240,53 @@
             return false;
           });
         </script>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h3>Administration</h3>
+      </section>
+      <section>
+        <h3>Mon compte</h3>
+        <h5>via #plateforme</h5>
+        <form id="myAccountForm">
+          <fieldset>
+            <label>
+              pseudo :
+              <input id="username" type="text" size="20" title="Saisissez votre pseudo ou votre adresse email">
+            </label>
+            <label>
+              secret :
+              <input id="password" type="password" size="20" title="Saisissez votre mot de passe">
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+      </code></pre>
+        </form>
+        <script>
+          $('#myAccountForm .validButton').click(function () {
+            var username = $('#username').val()
+                , password = $('#password').val();
+            apiDemoBaseElt = '#myAccountForm';
+            $.ajax({
+              method: 'post',
+              url: adminApiBaseUrl + '/login',
+              data: JSON.stringify({
+                username: username,
+                password: password
+              })
+            });
+            return false;
+          });
+        </script>
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h3>Consommation d'APIs</h3>
       </section>
 
     </section>
