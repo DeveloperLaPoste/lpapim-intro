@@ -46,6 +46,16 @@
       });
     }
 
+    function showJsonResult(result) {
+      $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
+      refreshHighlightBlocks();
+    }
+
+    function toggleSourceCode() {
+      $('pre').toggle();
+      return false;
+    }
+
     $.ajaxSetup({
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -57,13 +67,11 @@
         $('body').removeClass('loading');
       },
       success: function (result) {
-        $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
-        refreshHighlightBlocks();
+        showJsonResult(result);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         var content = JSON.parse(jqXHR.responseText);
-        $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(content, null, 2));
-        refreshHighlightBlocks();
+        showJsonResult(content);
       }
     });
   </script>
@@ -122,37 +130,43 @@
     </section>
 
     <section>
+
       <section>
-        <h2>GETSHIRT</h2>
-        <h3>la startup de CAROLINE</h3>
-        <img src="assets/img/image15.png" style="margin-top: 50px">
+        <h2>Présentation Personnas</h2>
+        <div style="margin-top: 80px">
+          <h3 style="float: left; margin-left: 90px">Elsa</h3>
+          <h3 style="float: right; margin-right: 50px">Caroline</h3>
+          <h5 style="float: left; margin-left: 170px">GETSHIRT Startup</h5>
+        </div>
+        <img src="assets/img/image15.png" style="margin-top: 0">
         <h5 style="margin-top: 50px">Et si vous étiez à la place de Caroline ?</h5>
       </section>
       <section>
-        <h3>API LA POSTE = COMPLIQUÉ ?</h3>
+        <h3>API La Poste = compliqué ?</h3>
         <img src="assets/img/twitter.png">
-        <h4>@laposteapi</h4>
+        <h4>@LaPosteAPI</h4>
       </section>
       <section>
-        <h3>PANORAMA DES SERVICES</h3>
+        <h3>Panorama des services</h3>
         <h5>exposés via la plateforme</h5>
         <img src="assets/img/panorama-services.png">
       </section>
       <section>
-        <h3>ELSA VEUT ACHETER UN T-SHIRT</h3>
-        <h5>Schéma des interactions Elsa → Caroline → API</h5>
+        <h3>Elsa veut acheter un t-shirt à Caroline</h3>
+        <div style="margin-top: 0">
+          <img src="assets/img/lp-apim-big-picture.png" style="width: 60%">
+        </div>
       </section>
+
       <section>
-        <h4>NORMALISATION D'ADRESSE</h4>
-        <p>
-          <strong>Use case</strong>: Elsa peut taper rapidement son adresse sans erreur quand elle se connecte au
-          service de Caroline
-        </p>
-      </section>
-      <section>
-        <h3>Adresse</h3>
-        <h5>via #adresse</h5>
-        <form id="adresseForm">
+        <img src="assets/img/adresse.png" style="float: left; width: 100px">
+        <div>
+          <h3>Normalisation d'adresse</h3>
+          <p>
+            Elsa saisit son adresse sans erreur sur le site de Caroline
+          </p>
+        </div>
+        <form id="adresseForm" style="margin-top: 80px; clear: both">
           <fieldset>
             <label>
               Adresse :
@@ -165,8 +179,21 @@
             </label>
             <button class="validButton">ok</button>
           </fieldset>
-      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-      </code></pre>
+          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+          </code></pre>
+          <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/mascadia/v1/rechercher?chaineRecherche=' + adresse,
+  success: function (suggestionAdresse) {
+    // utiliser suggestionAdresse
+  }
+});
+          </code></pre>
+          <div style="text-align: right">
+            <a href="#" onclick="return toggleSourceCode()">
+              <small>source</small>
+            </a>
+          </div>
         </form>
         <script>
           $('#adresseForm .validButton').click(function () {
@@ -177,8 +204,7 @@
               success: function (result) {
                 result.libelleHighlight = result.libelleHighlight.replace(/\<[\/]?em\>/g, '');
                 console.log('result :', result);
-                $(apiDemoBaseElt + ' .resultBody').text(JSON.stringify(result, null, 2));
-                refreshHighlightBlocks();
+                showJsonResult(result);
                 $('#adresse').val('');
                 $('#adresseOriginale').val(adresse);
                 $('#adresseProposee').val(result.libelleHighlight);
@@ -188,10 +214,16 @@
           });
         </script>
       </section>
+
       <section>
-        <h3>Suivre mon colis</h3>
-        <h5>via #suiviunifié</h5>
-        <form id="suiviForm">
+        <img src="assets/img/suivi.png" style="float: left; width: 100px">
+        <div>
+          <h3>Suivi de colis</h3>
+          <p>
+            Elsa peut suivre son colis sur le site de Caroline
+          </p>
+        </div>
+        <form id="suiviForm" style="margin-top: 80px">
           <fieldset>
             <label>
               N° de colis :
@@ -200,15 +232,33 @@
             </label>
             <button class="validButton">ok</button>
           </fieldset>
-      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-      </code></pre>
+          <h5 id="suiviStatus"></h5>
+          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+          </code></pre>
+          <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/suivi/v1/?code=' + noColis,
+  success: function (statut) {
+    // utiliser statut
+  }
+});
+          </code></pre>
+          <div style="text-align: right">
+            <a href="#" onclick="return toggleSourceCode()">
+              <small>source</small>
+            </a>
+          </div>
         </form>
         <script>
           $('#suiviForm .validButton').click(function () {
             var code = $('#suiviCode').val();
             apiDemoBaseElt = '#suiviForm';
             $.ajax({
-              url: apiBaseUrl + '/suivi/v1?code=' + code
+              url: apiBaseUrl + '/suivi/v1?code=' + code,
+              success: function (result) {
+                $('#suiviStatus').text(result.message);
+                showJsonResult(result);
+              }
             });
             return false;
           });
@@ -216,8 +266,13 @@
       </section>
 
       <section>
-        <h3>Trouver un bureau de poste</h3>
-        <h5>via #datanova</h5>
+        <img src="assets/img/datanova.png" style="float: left; width: 100px">
+        <div>
+          <h3>Datanova</h3>
+          <p>
+            Elsa cherche un bureau de poste
+          </p>
+        </div>
         <form id="bureauForm">
           <fieldset>
             <label>
@@ -227,26 +282,97 @@
             </label>
             <button class="validButton">ok</button>
           </fieldset>
-      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-      </code></pre>
+          <a id="gmapLink" href="" style="display:none">Google map</a>
+          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+          </code></pre>
+          <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/datanova/v1/search?q=' + q,
+  success: function (bureaux) {
+    // utiliser bureaux
+  }
+});
+          </code></pre>
+          <div style="text-align: right">
+            <a href="#" onclick="return toggleSourceCode()">
+              <small>source</small>
+            </a>
+          </div>
         </form>
         <script>
           $('#bureauForm .validButton').click(function () {
             var q = $('#bureauSearch').val();
             apiDemoBaseElt = '#bureauForm';
             $.ajax({
-              url: apiBaseUrl + '/datanova/v1/search?q=' + q
+              url: apiBaseUrl + '/datanova/v1/search?q=' + q,
+              success: function (result) {
+                $('#gmapLink').attr('href', result[0].map).show();
+                showJsonResult(result);
+              }
             });
             return false;
           });
         </script>
       </section>
+
+      <section>
+        <img src="assets/img/tarifenvoi.png" style="float: left; width: 100px">
+        <div>
+          <h3>Tarif envoi</h3>
+          <p>
+            Elsa veut savoir combien coute le renvoi de colis
+          </p>
+        </div>
+        <form id="tarifEnvoiForm" style="margin-top: 80px">
+          <fieldset>
+            <label>
+              Poids :
+              <input id="tarifEnvoiPoids" type="text" placeholder="800"
+                     title="Saisissez le poids du colis en grammes"> gr
+            </label>
+            <button class="validButton">ok</button>
+          </fieldset>
+          <h5 id="tarifEnvoiStatus"></h5>
+            <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+            </code></pre>
+            <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/tarifenvoi/v1/?type=colis&poids=' + grammes,
+  success: function (tarifs) {
+    // utiliser tarifs
+  }
+});
+            </code></pre>
+          <div style="text-align: right">
+            <a href="#" onclick="return toggleSourceCode()">
+              <small>source</small>
+            </a>
+          </div>
+        </form>
+        <script>
+          $('#tarifEnvoiForm .validButton').click(function () {
+            var poids = $('#tarifEnvoiPoids').val();
+            apiDemoBaseElt = '#tarifEnvoiForm';
+            $.ajax({
+              url: apiBaseUrl + '/tarifenvoi/v1?type=colis&poids=' + poids,
+              success: function (result) {
+                $('#tarifEnvoiStatus').text(result[0].price + result[0].currency);
+                showJsonResult(result);
+              }
+            });
+            return false;
+          });
+        </script>
+      </section>
+
     </section>
 
     <section>
+
       <section>
         <h3>Administration</h3>
       </section>
+
       <section>
         <h3>Mon compte</h3>
         <h5>via #plateforme</h5>
@@ -281,12 +407,6 @@
             return false;
           });
         </script>
-      </section>
-    </section>
-
-    <section>
-      <section>
-        <h3>Consommation d'APIs</h3>
       </section>
 
     </section>

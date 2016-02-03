@@ -221,5 +221,7 @@ body {
     content: "\201c\20"; }
   .reveal section q:after {
     content: "\20\201d"; }
+  .reveal section fieldset {
+    margin-bottom: 20px; }
 
 /*# sourceMappingURL=laposte.css.map */
