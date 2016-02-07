@@ -89,7 +89,7 @@
             <h3>Introduction</h3>
           </div>
           <div class="author">
-            <p>Olivier Penhoat / David Carelli / Philippe Antoine</p>
+            <p>David Carelli / Olivier Penhoat / Philippe Antoine</p>
             <p>
               Branche Numérique / La Poste
             </p>
@@ -132,6 +132,7 @@
         <h2>
           <a href="https://developer.laposte.fr/intro">developer.laposte.fr/intro</a>
         </h2>
+        <br><br>
         <h2>
           <a href="https://twitter.com/laposteapi">@LaPosteAPI</a>
         </h2>
@@ -183,7 +184,7 @@
           <fieldset>
             <label>
               Adresse :
-              <input list="adresses" id="adresse" type="text" placeholder="21 Quai Louis Blériot, 75016 Paris" size="70"
+              <input list="adresses" id="adresse" type="text" placeholder="21 Quai Louis Blériot, 75016 Paris" size="70" autocomplete="off"
                      title="Saisissez un numéro de colis ou de courrier" data-list="">
               <datalist id="adresses">
                 <option id="adresseOriginale" value="">
@@ -412,33 +413,42 @@ $.ajax({
       </section>
 
       <section>
-        <h3>Zoom plateforme La Poste</h3>
+        <h3>Zoom sur la plateforme</h3>
         <img src="assets/img/schema-laposte-partenaire.png">
       </section>
 
       <section>
-        <h3>Résumé des fonctionnalités de la plateforme</h3
+        <h3>La plateforme en résumé</h3>
+        <ul>
+          <li>RESTful : 100% API first</li>
+          <li>Performante : < 200ms / 10k appels / 100 concurrents</li>
+          <li>Sécurité extensible : basic auth, clés, façades OAuth2</li>
+          <li>Transformations sans limite : par API, ressource, plan</li>
+          <li>Monétisation transparente : intégration de Mévéo et Payzen</li>
+          <li>Mesure en temps réel : monitoring business, KPIs</li>
+        </ul>
       </section>
       
       <section>
         <h3>Panorama des services</h3>
-        <h5>exposés via la plateforme Open API du Groupe La Poste</h5>
+        <h5>exposés via la plateforme</h5>
         <img src="assets/img/panorama-services.png">
       </section>
     </section>
     
     <section>
-      <section class="first">
-        
+      <section>
         <h1>
           Merci
         </h1>
         <h2>
           A vous
         </h2>
+        <br><br>
         <h2>
           <a href="https://developer.laposte.fr/intro">developer.laposte.fr/intro</a>
         </h2>
+        <br><br>
         <h2>
           <a href="https://twitter.com/laposteapi">@LaPosteAPI</a>
         </h2>
