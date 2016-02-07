@@ -1,21 +1,21 @@
 {
   "name": "naked-api",
   "version": "2.6.2",
-  "description": "The HTML Presentation Framework",
-  "homepage": "http://lab.hakim.se/reveal-js",
+  "description": "Présentation d'introduction sur la plateforme Open API du Groupe La Poste",
+  "homepage": "https://developer.laposte.fr/intro",
   "subdomain": "revealjs",
   "scripts": {
     "test": "grunt test",
     "start": ""
   },
   "author": {
-    "name": "Hakim El Hattab",
-    "email": "hakim.elhattab@gmail.com",
-    "web": "http://hakim.se"
+    "name": "Olivier Penhoat",
+    "email": "openhoat@gmail.com",
+    "web": "https://about.me/openhoat"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "git@github.com:DeveloperLaPoste/lpapim-intro.git"
   },
   "engines": {
     "node": "~0.10.0"
