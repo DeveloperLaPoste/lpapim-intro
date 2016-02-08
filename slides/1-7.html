@@ -1,0 +1,33 @@
+<img src="assets/img/datanova.png" style="float: left; width: 100px">
+<div>
+  <h3>Datanova</h3>
+  <p>
+    Elsa cherche un bureau de poste
+  </p>
+</div>
+<form id="bureauForm">
+  <fieldset>
+    <label>
+      Où :
+      <input id="bureauSearch" type="text" placeholder="Toulouse"
+             title="Saisissez une adresse/zone où trouver un bureau de poste">
+    </label>
+    <button class="validButton">ok</button>
+  </fieldset>
+  <a id="gmapLink" href="" style="display:none">Google map</a>
+  <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+  </code></pre>
+  <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/datanova/v1/search?q=' + q,
+  success: function (bureaux) {
+    // utiliser bureaux
+  }
+});
+  </code></pre>
+  <div style="text-align: right">
+    <a href="#" onclick="return toggleSourceCode()">
+      <small>source</small>
+    </a>
+  </div>
+</form>

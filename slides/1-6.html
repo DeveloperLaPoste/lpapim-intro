@@ -1,0 +1,33 @@
+<img src="assets/img/suivi.png" style="float: left; width: 100px">
+<div>
+  <h3>Suivi de colis</h3>
+  <p>
+    Elsa peut suivre son colis sur le site de Caroline
+  </p>
+</div>
+<form id="suiviForm" style="margin-top: 80px">
+  <fieldset>
+    <label>
+      N° de colis :
+      <input id="suiviCode" type="text" placeholder="1234567890123"
+             title="Saisissez un numéro de colis ou de courrier">
+    </label>
+    <button class="validButton">ok</button>
+  </fieldset>
+  <h5 id="suiviStatus"></h5>
+  <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+  </code></pre>
+  <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/suivi/v1/?code=' + noColis,
+  success: function (statut) {
+    // utiliser statut
+  }
+});
+  </code></pre>
+  <div style="text-align: right">
+    <a href="#" onclick="return toggleSourceCode()">
+      <small>source</small>
+    </a>
+  </div>
+</form>

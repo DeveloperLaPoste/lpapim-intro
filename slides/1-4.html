@@ -1,0 +1,36 @@
+<img src="assets/img/adresse.png" style="float: left; width: 100px">
+<div>
+  <h3>Normalisation d'adresse</h3>
+  <p>
+    Elsa saisit son adresse sans erreur sur le site de Caroline
+  </p>
+</div>
+<form id="adresseForm" style="margin-top: 80px; clear: both">
+  <fieldset>
+    <label>
+      Adresse :
+      <input list="adresses" id="adresse" type="text" placeholder="21 Quai Louis Blériot, 75016 Paris" size="70" autocomplete="off"
+             title="Saisissez un numéro de colis ou de courrier" data-list="">
+      <datalist id="adresses">
+        <option id="adresseOriginale" value="">
+        <option id="adresseProposee" value="">
+      </datalist>
+    </label>
+    <button class="validButton">ok</button>
+  </fieldset>
+  <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+  </code></pre>
+  <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/mascadia/v1/rechercher?chaineRecherche=' + adresse,
+  success: function (suggestionAdresse) {
+    // utiliser suggestionAdresse
+  }
+});
+  </code></pre>
+  <div style="text-align: right">
+    <a href="#" onclick="return toggleSourceCode()">
+      <small>source</small>
+    </a>
+  </div>
+</form>

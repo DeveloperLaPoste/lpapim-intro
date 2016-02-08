@@ -33,7 +33,8 @@
   <script src="lib/js/html5shiv.js"></script>
   <![endif]-->
   <script>
-    var appKey, adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt;
+    var appKey, adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt
+      , onLoaded = {};
     appKey = 'dW5b/dYb29sEl5Gser7gtu7/n69epJbFZQS6O2CKo5WLypwbUNlUBk7kD0MNRzsU';
     adminApiBaseUrl = 'https://adminapi.laposte.fr';
     apiBaseUrl = 'https://api.laposte.fr';
@@ -74,433 +75,114 @@
         showJsonResult(content);
       }
     });
+
+    onLoaded = {
+      'slides/0-0.html': function() {
+        !function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+          if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+          }
+        }(document, 'script', 'twitter-wjs');
+      },
+      'slides/1-4.html': function() {
+        console.log('yeas !!');
+        $('#adresseForm .validButton').click(function () {
+          console.log('click !');
+          var adresse = $('#adresse').val();
+          apiDemoBaseElt = '#adresseForm';
+          $.ajax({
+            url: apiBaseUrl + '/mascadia/v1/rechercher?chaineRecherche=' + adresse,
+            success: function (result) {
+              result.libelleHighlight = result.libelleHighlight.replace(/\<[\/]?em\>/g, '');
+              console.log('result :', result);
+              showJsonResult(result);
+              $('#adresse').val('');
+              $('#adresseOriginale').val(adresse);
+              $('#adresseProposee').val(result.libelleHighlight);
+            }
+          });
+          return false;
+        });
+      },
+      'slides/1-6.html' : function() {
+        $('#suiviForm .validButton').click(function () {
+          var code = $('#suiviCode').val();
+          apiDemoBaseElt = '#suiviForm';
+          $.ajax({
+            url: apiBaseUrl + '/suivi/v1?code=' + code,
+            success: function (result) {
+              $('#suiviStatus').text(result.message);
+              showJsonResult(result);
+            }
+          });
+          return false;
+        });
+      },
+      'slides/1-7.html' : function() {
+        $('#bureauForm .validButton').click(function () {
+          var q = $('#bureauSearch').val();
+          apiDemoBaseElt = '#bureauForm';
+          $.ajax({
+            url: apiBaseUrl + '/datanova/v1/search?q=' + q,
+            success: function (result) {
+              $('#gmapLink').attr('href', result[0].map).show();
+              showJsonResult(result);
+            }
+          });
+          return false;
+        });
+      },
+      'slides/1-8.html' : function() {
+        $('#tarifEnvoiForm .validButton').click(function () {
+          var poids = $('#tarifEnvoiPoids').val();
+          apiDemoBaseElt = '#tarifEnvoiForm';
+          $.ajax({
+            url: apiBaseUrl + '/tarifenvoi/v1?type=colis&poids=' + poids,
+            success: function (result) {
+              $('#tarifEnvoiStatus').text(result[0].price + result[0].currency);
+              showJsonResult(result);
+            }
+          });
+          return false;
+        });
+      }
+    };
+
   </script>
 </head>
 <body>
 <div class="reveal">
   <div class="slides">
-
     <section>
-      <section class="first">
-        <div>
-          <div class="title">
-            <h1>La Poste</h1>
-            <h2>Plateforme Open API</h2>
-            <h3>Introduction</h3>
-          </div>
-          <div class="author">
-            <p>David Carelli / Olivier Penhoat / Philippe Antoine</p>
-            <p>
-              Branche Numérique / La Poste
-            </p>
-            <div style="margin-top: 20px">
-              <p>
-                <a href="mailto:developer@laposte.io">developer@laposte.io</a>
-              </p>
-              <p>
-                <a href="https://twitter.com/LaPosteAPI" class="twitter-follow-button" data-show-count="false"
-                   data-lang="fr" data-show-screen-name="false" data-size="large" data-dnt="true">Suivre @LaPosteAPI</a>
-                <script>!function (d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                  if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = p + '://platform.twitter.com/widgets.js';
-                    fjs.parentNode.insertBefore(js, fjs);
-                  }
-                }(document, 'script', 'twitter-wjs');</script>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="poweredby">
-          <p>
-            propulsé par <a href="http://lab.hakim.se/reveal-js">reveal js</a>
-          </p>
-          <p>
-            <a href="?print-pdf/#">version imprimable</a>
-          </p>
-        </div>
-        <aside class="notes"><pre><small>
-          Raccourcis :
-          f=fullscreen, s=notes, o=overview, ./b=black screen
-          </small></pre>
-        </aside>
-      </section>
-
-      <section class="first">
-        <h2>
-          <a href="https://developer.laposte.fr/intro">developer.laposte.fr/intro</a>
-        </h2>
-        <br><br>
-        <h2>
-          <a href="https://twitter.com/laposteapi">@LaPosteAPI</a>
-        </h2>
-      </section>
-
+      <section class="first" data-external="slides/0-0.html"></section>
+      <section data-external="slides/0-1.html"></section>
     </section>
-
     <section>
-
-      <section>
-        <h2>Présentation Personnas</h2>
-        <div style="margin-top: 80px">
-          <h3 style="float: left; margin-left: 90px">Elsa</h3>
-          <h3 style="float: right; margin-right: 50px">Caroline</h3>
-          <h5 style="float: left; margin-left: 170px">Startup <a href="http://getshirt.io/">GetShirt</a></h5>
-        </div>
-        <img src="assets/img/elsa-et-caroline.png" style="margin-top: 0">
-        <h5 style="margin-top: 50px">Et si vous étiez à la place de Caroline ?</h5>
-      </section>
-
-      <section>
-        <h3>API La Poste = compliqué ?</h3>
-        <img src="assets/img/twitter.png">
-        <h4>@LaPosteAPI</h4>
-      </section>
-
-      <section>
-        <h3>Panorama des services</h3>
-        <h5>exposés via la plateforme Open API du Groupe La Poste</h5>
-        <img src="assets/img/panorama-services.png">
-      </section>
-
-      <section>
-        <h3>Elsa veut acheter un t-shirt à Caroline</h3>
-        <div>
-          <img src="assets/img/elsa-flux-1.png">
-        </div>
-      </section>
-
-      <section>
-        <img src="assets/img/adresse.png" style="float: left; width: 100px">
-        <div>
-          <h3>Normalisation d'adresse</h3>
-          <p>
-            Elsa saisit son adresse sans erreur sur le site de Caroline
-          </p>
-        </div>
-        <form id="adresseForm" style="margin-top: 80px; clear: both">
-          <fieldset>
-            <label>
-              Adresse :
-              <input list="adresses" id="adresse" type="text" placeholder="21 Quai Louis Blériot, 75016 Paris" size="70" autocomplete="off"
-                     title="Saisissez un numéro de colis ou de courrier" data-list="">
-              <datalist id="adresses">
-                <option id="adresseOriginale" value="">
-                <option id="adresseProposee" value="">
-              </datalist>
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-          </code></pre>
-          <pre class="sourceCode" style="display: none"><code>
-$.ajax({
-  url: 'https://api.laposte.fr/mascadia/v1/rechercher?chaineRecherche=' + adresse,
-  success: function (suggestionAdresse) {
-    // utiliser suggestionAdresse
-  }
-});
-          </code></pre>
-          <div style="text-align: right">
-            <a href="#" onclick="return toggleSourceCode()">
-              <small>source</small>
-            </a>
-          </div>
-        </form>
-        <script>
-          $('#adresseForm .validButton').click(function () {
-            var adresse = $('#adresse').val();
-            apiDemoBaseElt = '#adresseForm';
-            $.ajax({
-              url: apiBaseUrl + '/mascadia/v1/rechercher?chaineRecherche=' + adresse,
-              success: function (result) {
-                result.libelleHighlight = result.libelleHighlight.replace(/\<[\/]?em\>/g, '');
-                console.log('result :', result);
-                showJsonResult(result);
-                $('#adresse').val('');
-                $('#adresseOriginale').val(adresse);
-                $('#adresseProposee').val(result.libelleHighlight);
-              }
-            });
-            return false;
-          });
-        </script>
-      </section>
-
-      <section>
-        <h3>La Poste et l'appli de Caroline</h3>
-        <h4>dans un monde d'APIs</h4>
-        <div>
-          <img src="assets/img/elsa-flux-2.png">
-        </div>
-      </section>
-
-      <section>
-        <img src="assets/img/suivi.png" style="float: left; width: 100px">
-        <div>
-          <h3>Suivi de colis</h3>
-          <p>
-            Elsa peut suivre son colis sur le site de Caroline
-          </p>
-        </div>
-        <form id="suiviForm" style="margin-top: 80px">
-          <fieldset>
-            <label>
-              N° de colis :
-              <input id="suiviCode" type="text" placeholder="1234567890123"
-                     title="Saisissez un numéro de colis ou de courrier">
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-          <h5 id="suiviStatus"></h5>
-          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-          </code></pre>
-          <pre class="sourceCode" style="display: none"><code>
-$.ajax({
-  url: 'https://api.laposte.fr/suivi/v1/?code=' + noColis,
-  success: function (statut) {
-    // utiliser statut
-  }
-});
-          </code></pre>
-          <div style="text-align: right">
-            <a href="#" onclick="return toggleSourceCode()">
-              <small>source</small>
-            </a>
-          </div>
-        </form>
-        <script>
-          $('#suiviForm .validButton').click(function () {
-            var code = $('#suiviCode').val();
-            apiDemoBaseElt = '#suiviForm';
-            $.ajax({
-              url: apiBaseUrl + '/suivi/v1?code=' + code,
-              success: function (result) {
-                $('#suiviStatus').text(result.message);
-                showJsonResult(result);
-              }
-            });
-            return false;
-          });
-        </script>
-      </section>
-
-      <section>
-        <img src="assets/img/datanova.png" style="float: left; width: 100px">
-        <div>
-          <h3>Datanova</h3>
-          <p>
-            Elsa cherche un bureau de poste
-          </p>
-        </div>
-        <form id="bureauForm">
-          <fieldset>
-            <label>
-              Où :
-              <input id="bureauSearch" type="text" placeholder="Toulouse"
-                     title="Saisissez une adresse/zone où trouver un bureau de poste">
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-          <a id="gmapLink" href="" style="display:none">Google map</a>
-          <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-          </code></pre>
-          <pre class="sourceCode" style="display: none"><code>
-$.ajax({
-  url: 'https://api.laposte.fr/datanova/v1/search?q=' + q,
-  success: function (bureaux) {
-    // utiliser bureaux
-  }
-});
-          </code></pre>
-          <div style="text-align: right">
-            <a href="#" onclick="return toggleSourceCode()">
-              <small>source</small>
-            </a>
-          </div>
-        </form>
-        <script>
-          $('#bureauForm .validButton').click(function () {
-            var q = $('#bureauSearch').val();
-            apiDemoBaseElt = '#bureauForm';
-            $.ajax({
-              url: apiBaseUrl + '/datanova/v1/search?q=' + q,
-              success: function (result) {
-                $('#gmapLink').attr('href', result[0].map).show();
-                showJsonResult(result);
-              }
-            });
-            return false;
-          });
-        </script>
-      </section>
-
-      <section>
-        <img src="assets/img/tarifenvoi.png" style="float: left; width: 100px">
-        <div>
-          <h3>Tarif envoi</h3>
-          <p>
-            Elsa veut savoir combien coûte le renvoi de colis
-          </p>
-        </div>
-        <form id="tarifEnvoiForm" style="margin-top: 80px">
-          <fieldset>
-            <label>
-              Poids :
-              <input id="tarifEnvoiPoids" type="text" placeholder="800"
-                     title="Saisissez le poids du colis en grammes"> gr
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-          <h5 id="tarifEnvoiStatus"></h5>
-            <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-            </code></pre>
-            <pre class="sourceCode" style="display: none"><code>
-$.ajax({
-  url: 'https://api.laposte.fr/tarifenvoi/v1/?type=colis&poids=' + grammes,
-  success: function (tarifs) {
-    // utiliser tarifs
-  }
-});
-            </code></pre>
-          <div style="text-align: right">
-            <a href="#" onclick="return toggleSourceCode()">
-              <small>source</small>
-            </a>
-          </div>
-        </form>
-        <script>
-          $('#tarifEnvoiForm .validButton').click(function () {
-            var poids = $('#tarifEnvoiPoids').val();
-            apiDemoBaseElt = '#tarifEnvoiForm';
-            $.ajax({
-              url: apiBaseUrl + '/tarifenvoi/v1?type=colis&poids=' + poids,
-              success: function (result) {
-                $('#tarifEnvoiStatus').text(result[0].price + result[0].currency);
-                showJsonResult(result);
-              }
-            });
-            return false;
-          });
-        </script>
-      </section>
-      
-      
-      <section>
-        <img src="assets/img/caroline.png" style="float: left; width: 150px">
-        <div>
-          <h3>Caroline gère ses APIs</h3>
-          <p>sur <a href="https://developer.laposte.fr/">developer.laposte.fr</a></p>
-        </div>
-        <img src="assets/img/developer-laposte-fr.png" style="width: 70%">
-      </section>
-
-
+      <section data-external="slides/1-0.html"></section>
+      <section data-external="slides/1-1.html"></section>
+      <section data-external="slides/1-2.html"></section>
+      <section data-external="slides/1-3.html"></section>
+      <section data-external="slides/1-4.html"></section>
+      <section data-external="slides/1-5.html"></section>
+      <section data-external="slides/1-6.html"></section>
+      <section data-external="slides/1-7.html"></section>
+      <section data-external="slides/1-8.html"></section>
+      <section data-external="slides/1-9.html"></section>
     </section>
-
     <section>
-
-      <section>
-        <h3>Hector, un partenaire</h3>
-        <img src="assets/img/personna-hector.png" style="width: 80%">
-      </section>
-
-      <section>
-        <h3>Hector fournit un service à Caroline</h3>
-        <img src="assets/img/schema-intro-hector.png">
-      </section>
-
-      <section>
-        <h3>Zoom sur la plateforme</h3>
-        <img src="assets/img/schema-laposte-partenaire.png">
-      </section>
-
-      <section>
-        <h3>La plateforme en résumé</h3>
-        <ul>
-          <li>RESTful : 100% API first</li>
-          <li>Performante : < 200ms / 10k appels / 100 concurrents</li>
-          <li>Sécurité extensible : basic auth, clés, façades OAuth2</li>
-          <li>Transformations sans limite : par API, ressource, plan</li>
-          <li>Monétisation transparente : intégration de Mévéo et Payzen</li>
-          <li>Mesure en temps réel : monitoring business, KPIs</li>
-        </ul>
-      </section>
-      
-      <section>
-        <h3>Panorama des services</h3>
-        <h5>exposés via la plateforme</h5>
-        <img src="assets/img/panorama-services.png">
-      </section>
+      <section data-external="slides/2-0.html"></section>
+      <section data-external="slides/2-1.html"></section>
+      <section data-external="slides/2-2.html"></section>
+      <section data-external="slides/2-3.html"></section>
+      <section data-external="slides/2-4.html"></section>
     </section>
-    
     <section>
-      <section>
-        <h1>
-          Merci
-        </h1>
-        <h2>
-          A vous
-        </h2>
-        <br><br>
-        <h2>
-          <a href="https://developer.laposte.fr/intro">developer.laposte.fr/intro</a>
-        </h2>
-        <br><br>
-        <h2>
-          <a href="https://twitter.com/laposteapi">@LaPosteAPI</a>
-        </h2>
-      </section>
+      <section data-external="slides/3-0.html"></section>
     </section>
-
-<!--
-    <section>
-
-      <section>
-        <h3>Administration</h3>
-      </section>
-
-      <section>
-        <h3>Mon compte</h3>
-        <h5>via #plateforme</h5>
-        <form id="myAccountForm">
-          <fieldset>
-            <label>
-              pseudo :
-              <input id="username" type="text" size="20" title="Saisissez votre pseudo ou votre adresse email">
-            </label>
-            <label>
-              secret :
-              <input id="password" type="password" size="20" title="Saisissez votre mot de passe">
-            </label>
-            <button class="validButton">ok</button>
-          </fieldset>
-      <pre><code class="resultBody" title="Résultat de la requête" data-trim>
-      </code></pre>
-        </form>
-        <script>
-          $('#myAccountForm .validButton').click(function () {
-            var username = $('#username').val()
-                , password = $('#password').val();
-            apiDemoBaseElt = '#myAccountForm';
-            $.ajax({
-              method: 'post',
-              url: adminApiBaseUrl + '/login',
-              data: JSON.stringify({
-                username: username,
-                password: password
-              })
-            });
-            return false;
-          });
-        </script>
-      </section>
-
-    </section>
--->
-
   </div>
 </div>
 <div class="modal"></div>
@@ -524,36 +206,13 @@ $.ajax({
     // parallaxBackgroundSize: '2100px 900px',
     // Optional libraries used to extend on reveal.js
     dependencies: [
-      {
-        src: 'lib/js/classList.js', condition: function () {
-        return !document.body.classList;
-      }
-      },
-      {
-        src: 'plugin/markdown/marked.js', condition: function () {
-        return !!document.querySelector('[data-markdown]');
-      }
-      },
-      {
-        src: 'plugin/markdown/markdown.js', condition: function () {
-        return !!document.querySelector('[data-markdown]');
-      }
-      },
-      {
-        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-        hljs.initHighlightingOnLoad();
-      }
-      },
-      {
-        src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
-        return !!document.body.classList;
-      }
-      },
-      {
-        src: 'plugin/notes/notes.js', async: true, condition: function () {
-        return !!document.body.classList;
-      }
-      }
+      { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+      { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+      { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } },
+      { src: 'plugin/external/external.js', condition: function() { return !!document.querySelector( '[data-external]' ); } }
     ]
   });
 </script>

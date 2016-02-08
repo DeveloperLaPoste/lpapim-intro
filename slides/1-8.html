@@ -1,0 +1,33 @@
+<img src="assets/img/tarifenvoi.png" style="float: left; width: 100px">
+<div>
+  <h3>Tarif envoi</h3>
+  <p>
+    Elsa veut savoir combien coûte le renvoi de colis
+  </p>
+</div>
+<form id="tarifEnvoiForm" style="margin-top: 80px">
+  <fieldset>
+    <label>
+      Poids :
+      <input id="tarifEnvoiPoids" type="text" placeholder="800"
+             title="Saisissez le poids du colis en grammes"> gr
+    </label>
+    <button class="validButton">ok</button>
+  </fieldset>
+  <h5 id="tarifEnvoiStatus"></h5>
+    <pre><code class="resultBody" title="Résultat de la requête" data-trim>
+    </code></pre>
+    <pre class="sourceCode" style="display: none"><code>
+$.ajax({
+  url: 'https://api.laposte.fr/tarifenvoi/v1/?type=colis&poids=' + grammes,
+  success: function (tarifs) {
+    // utiliser tarifs
+  }
+});
+    </code></pre>
+  <div style="text-align: right">
+    <a href="#" onclick="return toggleSourceCode()">
+      <small>source</small>
+    </a>
+  </div>
+</form>
