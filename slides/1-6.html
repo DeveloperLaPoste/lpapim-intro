@@ -20,6 +20,9 @@
   <pre class="sourceCode" style="display: none"><code>
 $.ajax({
   url: 'https://api.laposte.fr/suivi/v1/?code=' + noColis,
+  beforeSend: function (xhr) {
+    xhr.setRequestHeader('X-LP-APIM-KEY', 'dW5b/dYb29sEl5Gser7gtu7/n69epJbFZQS6O2CKo5WLypwbUNlUBk7kD0MNRzsU');
+  },
   success: function (statut) {
     // utiliser statut
   }
