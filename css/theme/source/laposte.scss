@@ -40,7 +40,7 @@
 }
 // Override theme settings (see ../template/settings.scss)
 $backgroundColor: #fff;
-$headingColor: #183f80;
+$headingColor: #613c22;
 $linkColor: #2277d7;
 $mainColor: darken(#636261, 10%);
 
@@ -58,10 +58,10 @@ $mainFontSize: 30px;
 // ---------------------------------------------
 
 .reveal {
-  background-image: url("../../assets/themes/laposte/laposte-open-logo.png");
+  background-image: url("../../assets/themes/laposte/okapi-logo.png");
   background-color: #fff;
   background-repeat: no-repeat;
-  background-size: 150px 91px;
+  background-size: 150px 150px;
   background-position: 20px 20px;
   .controls {
     display: none;

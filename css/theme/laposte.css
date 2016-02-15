@@ -57,7 +57,7 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #183f80;
+  color: #613c22;
   font-family: "Montserrat", Impact, sans-serif;
   line-height: 0.9em;
   letter-spacing: -0.03em;
@@ -159,10 +159,10 @@ body {
   color: #2277d7; }
 
 .reveal {
-  background-image: url("../../assets/themes/laposte/laposte-open-logo.png");
+  background-image: url("../../assets/themes/laposte/okapi-logo.png");
   background-color: #fff;
   background-repeat: no-repeat;
-  background-size: 150px 91px;
+  background-size: 150px 150px;
   background-position: 20px 20px; }
   .reveal .controls {
     display: none;
