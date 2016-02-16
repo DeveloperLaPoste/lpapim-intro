@@ -41,7 +41,7 @@ iframe.twitter-follow-button {
   left: 0;
   height: 100%;
   width: 100%;
-  background: url('ajax-loader.gif') 50% 50% no-repeat;
+  background: url('../img/ajax-loader.gif') 50% 50% no-repeat;
 }
 
 body.loading .resultBody {

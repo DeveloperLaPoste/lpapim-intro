@@ -1,5 +1,5 @@
 /**
- * La Poste theme for reveal.js.
+ * Okapi theme for reveal.js.
  *
  * Copyright (C) 2016 Olivier Penhoat
  */
@@ -7,27 +7,27 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 700;
-  src: local("Montserrat-Bold"), url("../../assets/themes/laposte/montserrat.ttf") format("truetype"); }
+  src: local("Montserrat-Bold"), url("../../assets/font/montserrat.ttf") format("truetype"); }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local("Open Sans"), local("OpenSans"), url("../../assets/themes/laposte/opensans-400.ttf") format("truetype"); }
+  src: local("Open Sans"), local("OpenSans"), url("../../assets/font/opensans-400.ttf") format("truetype"); }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("../../assets/themes/laposte/opensans-700.ttf") format("truetype"); }
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url("../../assets/font/opensans-700.ttf") format("truetype"); }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  src: local("Open Sans Italic"), local("OpenSans-Italic"), url("../../assets/themes/laposte/opensans-400-italic.ttf") format("truetype"); }
+  src: local("Open Sans Italic"), local("OpenSans-Italic"), url("../../assets/font/opensans-400-italic.ttf") format("truetype"); }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  src: local("Open Sans Bold Italic"), local("OpenSans-BoldItalic"), url("../../assets/themes/laposte/opensans-700-italic.ttf") format("truetype"); }
+  src: local("Open Sans Bold Italic"), local("OpenSans-BoldItalic"), url("../../assets/font/opensans-700-italic.ttf") format("truetype"); }
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
@@ -159,7 +159,7 @@ body {
   color: #2277d7; }
 
 .reveal {
-  background-image: url("../../assets/themes/laposte/okapi-logo.png");
+  background-image: url("../../assets/img/okapi-logo.png");
   background-color: #fff;
   background-repeat: no-repeat;
   background-size: 150px 150px;
@@ -224,4 +224,4 @@ body {
   .reveal section fieldset {
     margin-bottom: 20px; }
 
-/*# sourceMappingURL=laposte.css.map */
+/*# sourceMappingURL=okapi.css.map */
