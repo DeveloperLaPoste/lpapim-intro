@@ -42,8 +42,8 @@ module.exports = function(grunt) {
 				files: {
 					'css/theme/default.css': 'css/theme/source/default.scss',
 					'css/theme/beige.css': 'css/theme/source/beige.scss',
-          'css/theme/laposte.css': 'css/theme/source/laposte.scss',
 					'css/theme/night.css': 'css/theme/source/night.scss',
+          'css/theme/okapi.css': 'css/theme/source/okapi.scss',
 					'css/theme/serif.css': 'css/theme/source/serif.scss',
 					'css/theme/simple.css': 'css/theme/source/simple.scss',
 					'css/theme/sky.css': 'css/theme/source/sky.scss',
