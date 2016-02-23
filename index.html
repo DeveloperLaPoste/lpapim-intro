@@ -35,7 +35,7 @@
   <script>
     var appKey, adminApiBaseUrl, apiBaseUrl, apiDemoBaseElt
       , onLoaded;
-    appKey = 'dW5b/dYb29sEl5Gser7gtu7/n69epJbFZQS6O2CKo5WLypwbUNlUBk7kD0MNRzsU';
+    appKey = 't6PEZVOxAKRgsvYdW7f/R4lIsHq3xFvS2fWpi/BveDAHY8bCQoCwzWbHv6RvwKul';
     adminApiBaseUrl = 'https://adminapi.laposte.fr';
     apiBaseUrl = 'https://api.laposte.fr';
     //adminApiBaseUrl = 'http://admin.test.lpapim.laposte.io';
@@ -62,7 +62,7 @@
       dataType: 'json',
       beforeSend: function (xhr) {
         $('body').addClass('loading');
-        xhr.setRequestHeader('X-LP-APIM-KEY', appKey);
+        xhr.setRequestHeader('X-OKAPI-KEY', appKey);
       },
       complete: function () {
         $('body').removeClass('loading');
