@@ -1,30 +1,3 @@
-/*
-.reveal iframe.twitter-follow-button {
-  min-width: 50%;
-}
-
-.reveal form label {
-  font-size: 0.8em;
-}
-
-.reveal form input, .reveal form button {
-  font-size: 1em;
-}
-
-.reveal form button {
-  border: 1px solid #ccc;
-  border-radius: 15px;
-}
-
-.reveal form button:hover {
-  cursor: pointer;
-}
-
-.reveal form pre {
-  font-size: 0.7em;
-}
-*/
-
 iframe.twitter-follow-button {
   min-width: 50%;
 }
